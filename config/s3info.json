@@ -1,0 +1,5 @@
+{
+  "accessKeyId": "만들어놓은 aws 액세스 키",
+  "secretAccessKey": "만들어놓은 aws 비밀 액세스 키",
+  "region": "ap-northest-2"
+}
