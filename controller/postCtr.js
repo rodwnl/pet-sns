@@ -46,6 +46,38 @@ const postCtr = {
     const posts = await Post.findById(id); //아이디에 맞는 게시물 가져옴
     res.render("detail", { post: post }); //detail로 넘겨짐
   },
+
+  updateLayout: async (req, res) => {
+    //업데이트에 진입했을 때 이전의 데이터들이 미리 가져오는 부분
+    const { id } = req.params;
+    const post = await Post.findById(id);
+    res.render("update", { post: post });
+  },
+
+  update: async (req, res) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    try {
+      await Post.findByIdAndUpdate(
+        id,
+        { title: title, content: content },
+        { new: true } //업데이트 된 값을 반환
+      );
+      res.redirect("/"); //성공 시 redirect
+    } catch (error) {
+      res.status(500).send("update error!!");
+    }
+  },
+
+  delete: async (req, res) => {
+    const { id } = req.params;
+    try {
+      await Post.findByIdAndDelete(id);
+      res.redirect("/");
+    } catch (error) {
+      res.status(500).send("delete error!!");
+    }
+  },
 };
 
 module.exports = postCtr;
