@@ -143,15 +143,16 @@
       });
 
       $(() => {
-        const socket = io();
+        const socket = io(); //소켓 가져오기
 
         $("#chat_form").submit(() => {
-          socket.emit("chat-msg", name, $(".chat_input").val());
+          socket.emit("chat-msg", name, $(".chat_input").val()); //해당 이름으로 매개변수를 통해서 소켓통신
           $(".chat_input").val("");
           return false;
         });
 
         socket.on("chat-msg", (name, msg) => {
+          //chat-msg를 받고 다시 클라이언트에게
           let chat = `<div class="chat_block">
           <span style="font-weight: bolder">${name}</span> :
             ${msg}

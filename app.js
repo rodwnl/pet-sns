@@ -25,6 +25,16 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
+//소켓을 받음
+app.io = require("socket.io")();
+
+app.io.on("connection", (socket) => {
+  socket.on("chat-msg", (user, msg) => {
+    //user,msg를 바탕으로
+    app.io.emit("chat-msg", user, msg); //해당 유저에게 다시 emit
+  });
+});
+
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
