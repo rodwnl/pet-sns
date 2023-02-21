@@ -18,7 +18,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(jwtMiddleware); //모든 라우터 전에 사용자를 파악해야함
-
 app.use("/", indexRouter);
 
 // catch 404 and forward to error handler

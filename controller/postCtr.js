@@ -103,6 +103,22 @@ const postCtr = {
       post: result,
     });
   },
+
+  comment: async (req, res) => {
+    const { id } = req.params;
+    const post = await Post.findById(id);
+    const user = req.userInfo; //로그인하면서 받은 userInfo
+    const { comment } = req.body;
+    const commnetWrap = {
+      //한데 묶어서 객체로 저장
+      comment: comment,
+      user: user,
+    };
+
+    post.comment.push(commnetWrap);
+    const result = await post.save();
+    res.status(200).json({ post: result });
+  },
 };
 
 module.exports = postCtr;

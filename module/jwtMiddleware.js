@@ -16,7 +16,7 @@ const jwtMiddleware = async (req, res, next) => {
       username: decoded.username,
     };
     res.locals.isAuthenticated = { username: decoded.username };
-    return next();
+    return next(); // 다음 라우터로
   } catch (error) {
     res.status(500).send("jwt error!");
   }

@@ -102,9 +102,10 @@
 
       $(".comment_input").keydown(function (e) {
         if (e.keyCode === 13) {
+          //엔터키
           e.preventDefault();
           const id = $(this).attr("key");
-          const inputCommnet = $(this).val();
+          const inputCommnet = $(this).val(); //안에 있는 내용을 받아옴
           $(this).val("");
           $.ajax({
             url: `/posts/comment/${id}`,
@@ -112,6 +113,7 @@
             cache: false,
             dataType: "json",
             data: {
+              //data에 comment를 담아서
               comment: inputCommnet,
             },
             success: function (data) {
