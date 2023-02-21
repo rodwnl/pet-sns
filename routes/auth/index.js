@@ -13,4 +13,9 @@ router.get("/register", (req, res) => {
   res.render("register");
 });
 
+router.post("/logout", (req, res) => {
+  res.clearCookie("access_token");
+  res.redirect("/");
+});
+
 module.exports = router;
