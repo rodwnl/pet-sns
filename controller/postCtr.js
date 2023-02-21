@@ -78,6 +78,31 @@ const postCtr = {
       res.status(500).send("delete error!!");
     }
   },
+
+  like: async (req, res) => {
+    const { id } = req.params;
+    const post = await Post.findById(id);
+    const check = post.likeUser.some((userId) => {
+      //좋아요 눌렀는지
+      return userId === req.userInfo._id;
+    });
+    if (check) {
+      post.likeCount -= 1;
+      const idx = post.likeUser.indexOf(req.userInfo._id); //사용자 아이디에 맞는 배열 인덱스를 찾음
+      if (idx > -1) {
+        //해당 유저가 있다면
+        post.likeUser.splice(idx, 1); //해당 유저를 삭제
+      }
+    } else {
+      post.likeCount += 1;
+      post.likeUser.push(req.userInfo._id); //추가
+    }
+    const result = await post.save();
+    res.status(200).json({
+      check: check,
+      post: result,
+    });
+  },
 };
 
 module.exports = postCtr;
